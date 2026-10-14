@@ -6,44 +6,55 @@
     box-sizing: border-box;
 }
 
+/* Body */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #f0f4f8;
     color: #333;
     line-height: 1.6;
 }
 
 /* Header */
 body > header {
-    background-color: white;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
+    background-color: #ffffff;
+    padding: 25px 20px;
+    border-bottom: 3px solid #0d6efd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 body > header h1 {
     max-width: 900px;
     margin: auto;
+    color: #0d6efd;
 }
 
 /* Navigation */
 nav {
     max-width: 900px;
-    margin: auto;
+    margin: 20px auto 0;
+    padding: 0 20px;
 }
 
 nav ul {
     display: flex;
     gap: 20px;
     list-style: none;
+    flex-wrap: wrap;
 }
 
 nav a {
+    display: inline-block;
     color: #333;
     text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: 0.3s;
 }
 
 nav a:hover {
-    color: #0d6efd;
+    color: white;
+    background-color: #0d6efd;
 }
 
 /* Main */
@@ -56,6 +67,9 @@ main {
 section {
     background-color: white;
     padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* Gambar */
@@ -63,15 +77,20 @@ main img {
     display: block;
     max-width: 100%;
     height: auto;
-    margin: 0;
+    margin: 15px auto;
+    border-radius: 8px;
 }
 
 /* Judul */
 h2 {
+    color: #0d6efd;
     margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e5efff;
 }
 
 h3 {
+    color: #333;
     margin-bottom: 5px;
 }
 
@@ -81,12 +100,22 @@ h3 {
 }
 
 article {
-    padding: 15px 0;
-    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e7ef;
+    border-left: 4px solid #0d6efd;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+article:hover {
+    background-color: #f5f9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 article:last-child {
-    border-bottom: none;
+    border-bottom: 1px solid #e0e7ef;
 }
 
 /* Form */
@@ -101,6 +130,7 @@ form p {
 label {
     display: inline-block;
     margin-bottom: 5px;
+    font-weight: bold;
 }
 
 input[type="text"],
@@ -108,45 +138,64 @@ input[type="email"],
 select,
 textarea {
     width: 100%;
-    padding: 9px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    border: 1px solid #ccd5e0;
+    border-radius: 6px;
     font-family: Arial, sans-serif;
+    outline: none;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
 }
 
 textarea {
     resize: vertical;
 }
 
+/* Button */
 button {
-    padding: 9px 15px;
+    padding: 10px 18px;
     border: none;
-    background-color: #333;
+    border-radius: 6px;
+    background-color: #0d6efd;
     color: white;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button[type="reset"] {
-    background-color: #888;
+    background-color: #6c757d;
 }
 
 button:hover {
-    opacity: 0.8;
+    opacity: 0.85;
+    transform: translateY(-1px);
 }
 
 /* Aside */
 aside {
-    max-width: 900px;
+    max-width: 860px;
     margin: 30px auto;
     padding: 20px;
     background-color: white;
-    border-left: 3px solid #0d6efd;
+    border-left: 4px solid #0d6efd;
+    border-radius: 6px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* Footer */
 footer {
+    margin-top: 30px;
     padding: 20px;
     text-align: center;
-    color: #777;
+    color: #ffffff;
+    background-color: #243447;
     font-size: 14px;
 }
 
@@ -157,20 +206,41 @@ hr {
 
 /* Tampilan HP */
 @media (max-width: 700px) {
+    body > header {
+        padding: 20px;
+    }
+
+    nav {
+        margin-top: 15px;
+    }
+
     nav ul {
         flex-direction: column;
-        gap: 8px;
+        gap: 5px;
+    }
+
+    nav a {
+        display: block;
     }
 
     main {
         margin-top: 20px;
+        padding: 0 15px;
+    }
+
+    section {
+        padding: 20px;
     }
 
     main img {
         margin: 0 auto;
     }
 
-    section {
-        padding: 20px;
+    aside {
+        margin: 20px 15px;
+    }
+
+    button {
+        max-width: 100%;
     }
 }
