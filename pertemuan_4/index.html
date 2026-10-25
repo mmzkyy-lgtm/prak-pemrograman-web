@@ -1,201 +1,418 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Portofolio Proyek - Modul 4</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Portfolio Tracker</title>
 
-    body {
-      background-color: #f1f5f9;
-      color: #0f172a;
-      padding: 30px 15px;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            color: #243047;
+            line-height: 1.6;
+        }
 
-    h1 {
-      color: #1e3a8a;
-      font-size: 24px;
-      margin-bottom: 5px;
-    }
+        header {
+            background: #ffffff;
+            padding: 24px 6%;
+            border-bottom: 1px solid #e2e8f0;
+        }
 
-    p.subtitle {
-      color: #64748b;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
+        header h1 {
+            color: #2457c5;
+            font-size: 26px;
+        }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-bottom: 25px;
-    }
+        header p {
+            color: #64748b;
+            margin-top: 5px;
+        }
 
-    .stat-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 15px;
-      text-align: center;
-    }
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
 
-    .stat-card h3 {
-      font-size: 13px;
-      color: #64748b;
-      text-transform: uppercase;
-      margin-bottom: 5px;
-    }
+        .section {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+        }
 
-    .stat-card p {
-      font-size: 20px;
-      font-weight: bold;
-      color: #1e3a8a;
-    }
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
 
-    .filter-group {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
 
-    .btn-filter {
-      padding: 8px 16px;
-      border: 1px solid #cbd5e1;
-      background: #ffffff;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
 
-    .btn-filter.active,
-    .btn-filter:hover {
-      background: #1e3a8a;
-      color: #ffffff;
-      border-color: #1e3a8a;
-    }
+        label {
+            font-weight: 600;
+            font-size: 14px;
+        }
 
-    .project-card {
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #ffffff;
-      transition: transform 0.15s ease;
-    }
+        input:not([type="checkbox"]),
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #fff;
+        }
 
-    .project-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    }
+        input:focus,
+        select:focus {
+            outline: 2px solid #bfdbfe;
+            border-color: #2563eb;
+        }
 
-    .project-info h4 {
-      font-size: 16px;
-      color: #0f172a;
-      margin-bottom: 4px;
-    }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: 22px;
+        }
 
-    .project-category {
-      display: inline-block;
-      font-size: 12px;
-      color: #0284c7;
-      background: #e0f2fe;
-      padding: 2px 8px;
-      border-radius: 4px;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
+        .checkbox-group input {
+            width: 17px;
+            height: 17px;
+        }
 
-    .project-budget {
-      font-size: 14px;
-      color: #334155;
-      font-weight: 600;
-    }
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
 
-    .badge {
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-    }
+        button:hover {
+            opacity: 0.85;
+        }
 
-    .badge-success {
-      background: #dcfce7;
-      color: #166534;
-    }
+        .btn-primary {
+            background: #2457c5;
+            color: white;
+            margin-top: 20px;
+        }
 
-    .badge-pending {
-      background: #fef9c3;
-      color: #854d0e;
-    }
-  </style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+        }
+
+        .stat-card p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .stat-card h3 {
+            font-size: 25px;
+            margin-top: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .stat-card.blue h3 { color: #2457c5; }
+        .stat-card.green h3 { color: #15945a; }
+        .stat-card.orange h3 { color: #d97706; }
+        .stat-card.purple h3 { color: #7c3aed; }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: #e8edf5;
+            color: #334155;
+        }
+
+        .filter-btn.active {
+            background: #2457c5;
+            color: #ffffff;
+        }
+
+        .project-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .project-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .project-card h3 {
+            font-size: 18px;
+            overflow-wrap: anywhere;
+            margin-bottom: 8px;
+        }
+
+        .project-category {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .project-budget {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 16px 0 10px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status.done {
+            color: #166534;
+            background: #dcfce7;
+        }
+
+        .status.pending {
+            color: #92400e;
+            background: #fef3c7;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 9px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .btn-status {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .btn-delete {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #64748b;
+            padding: 35px 10px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 850px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .project-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            main {
+                padding: 0 12px;
+                margin: 18px auto;
+            }
+
+            .section {
+                padding: 17px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-card h3 {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>Portofolio Proyek</h1>
 
-    <p class="subtitle">
-    </p>
+    <header>
+        <h1>Interactive Portfolio Tracker</h1>
+        <p>Kelola proyek, pantau status pekerjaan, dan hitung anggaran secara otomatis.</p>
+    </header>
 
-    <div class="stats-grid">
-      <div class="stat-card">
-        <h3>Total Proyek</h3>
-        <p id="stat-total-projects">0</p>
-      </div>
+    <main>
+        <section class="section">
+            <h2>Tambah Proyek Baru</h2>
 
-      <div class="stat-card">
-        <h3>Total Anggaran</h3>
-        <p id="stat-total-budget">Rp 0</p>
-      </div>
+            <form id="project-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="project-title">Judul Proyek</label>
+                        <input
+                            type="text"
+                            id="project-title"
+                            placeholder="Masukkan judul proyek"
+                            required
+                        >
+                    </div>
 
-      <div class="stat-card">
-        <h3>Selesai Dikerjakan</h3>
-        <p id="stat-completed-projects">0</p>
-      </div>
-    </div>
+                    <div class="form-group">
+                        <label for="project-category">Kategori</label>
+                        <select id="project-category" required>
+                            <option value="Web App">Web App</option>
+                            <option value="Mobile App">Mobile App</option>
+                            <option value="Desktop App">Desktop App</option>
+                            <option value="UI/UX Design">UI/UX Design</option>
+                        </select>
+                    </div>
 
-    <div class="filter-group">
-      <button class="btn-filter active" data-category="Semua">
-        Semua Proyek
-      </button>
+                    <div class="form-group">
+                        <label for="project-budget">Estimasi Anggaran (Rp)</label>
+                        <input
+                            type="number"
+                            id="project-budget"
+                            placeholder="Contoh: 2500000"
+                            min="1"
+                            step="any"
+                            required
+                        >
+                    </div>
 
-      <button class="btn-filter" data-category="Web App">
-        Web App
-      </button>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="project-completed">
+                        <label for="project-completed">Sudah Selesai</label>
+                    </div>
+                </div>
 
-      <button class="btn-filter" data-category="Desktop App">
-        Desktop App
-      </button>
+                <button type="submit" class="btn-primary">
+                    + Tambah Proyek
+                </button>
+            </form>
+        </section>
 
-      <button class="btn-filter" data-category="Mobile App">
-        Mobile App
-      </button>
-    </div>
+        <section class="stats-grid" aria-label="Ringkasan finansial">
+            <div class="stat-card blue">
+                <p>Total Proyek</p>
+                <h3 id="total-projects">0</h3>
+            </div>
 
-    <div id="project-list"></div>
-  </div>
+            <div class="stat-card green">
+                <p>Proyek Selesai</p>
+                <h3 id="completed-projects">0</h3>
+            </div>
 
-  <script src="main.js"></script>
+            <div class="stat-card orange">
+                <p>Dalam Pengerjaan</p>
+                <h3 id="ongoing-projects">0</h3>
+            </div>
+
+            <div class="stat-card purple">
+                <p>Total Anggaran</p>
+                <h3 id="total-budget">Rp0</h3>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Daftar Proyek</h2>
+
+            <div class="toolbar">
+                <input
+                    type="search"
+                    id="search-input"
+                    class="search-box"
+                    placeholder="Cari nama proyek..."
+                    aria-label="Cari nama proyek"
+                >
+            </div>
+
+            <div class="filter-buttons">
+                <button type="button" class="filter-btn active" data-category="Semua">Semua</button>
+                <button type="button" class="filter-btn" data-category="Web App">Web App</button>
+                <button type="button" class="filter-btn" data-category="Mobile App">Mobile App</button>
+                <button type="button" class="filter-btn" data-category="Desktop App">Desktop App</button>
+                <button type="button" class="filter-btn" data-category="UI/UX Design">UI/UX Design</button>
+            </div>
+
+            <div id="project-list" class="project-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        Interactive Portfolio Tracker &copy; 2026
+    </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>
